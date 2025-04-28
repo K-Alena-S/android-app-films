@@ -1,0 +1,6 @@
+<resources>
+    <style name="Base.Theme.Androidappfilms" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.Androidappfilms" parent="Base.Theme.Androidappfilms" />
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.Androidappfilms" parent="Base.Theme.Androidappfilms">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/blue</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
