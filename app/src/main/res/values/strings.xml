@@ -8,4 +8,7 @@
 
     <!-- Strings Fragment_Description-->
     <string name="description_fragment_label">Описание фильма</string>
+
+    <string name="error_network_text">Ошибка подключения сети</string>
+    <string name="return_text">Повторить</string>
 </resources>

@@ -52,4 +52,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.retrofit)
     implementation(libs.gson)
+    implementation(libs.glide)
+    implementation(libs.glideCompiler)
+    implementation(libs.koin)
 }
