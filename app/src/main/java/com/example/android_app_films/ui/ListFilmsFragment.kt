@@ -8,28 +8,33 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_app_films.R
 import com.example.android_app_films.ui.adapters.FilmAdapter
+import com.example.android_app_films.ui.adapters.GenreAdapter
 import com.example.android_app_films.viewmodel.FilmViewModel
-import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.android_app_films.models.data.Film
 
 class ListFilmsFragment : Fragment() {
 
     private val filmViewModel: FilmViewModel by viewModel()
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var moviesRecyclerView: RecyclerView
+    private lateinit var genresRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private var currentGenre: String? = null // Переменная для хранения текущего жанра
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_list_films, container, false)
-        recyclerView = view.findViewById(R.id.moviesGrid)
+        moviesRecyclerView = view.findViewById(R.id.moviesGrid)
+        genresRecyclerView = view.findViewById(R.id.genresRecyclerView)
+        moviesRecyclerView.setNestedScrollingEnabled(false)
+        genresRecyclerView.setNestedScrollingEnabled(false)
         progressBar = view.findViewById(R.id.progressBar)
-
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         return view
     }
@@ -39,30 +44,38 @@ class ListFilmsFragment : Fragment() {
 
         progressBar.visibility = View.VISIBLE
 
+        filmViewModel.fetchFilms()
+
         filmViewModel.films.observe(viewLifecycleOwner, Observer { films ->
             progressBar.visibility = View.GONE
-            if (films != null && films.isNotEmpty()) {
-                recyclerView.adapter = FilmAdapter(films)
-            } else {
-                showError()
-            }
+            setupGenres(films)
+            setupMovies(films)
         })
+    }
 
-        if (filmViewModel.films.value == null) {
-            filmViewModel.fetchFilms()
+    private fun setupGenres(films: List<Film>) {
+        val genres = films.flatMap { it.genres }.distinct().sorted()
+        genresRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        genresRecyclerView.adapter = GenreAdapter(genres) { genre ->
+            toggleGenreFilter(genre, films)
         }
     }
 
-    private fun showError() {
-        Snackbar.make(requireView(), R.string.error_network_text, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.return_text) {
-                if (filmViewModel.films.value == null) {
-                    filmViewModel.fetchFilms()
-                }
-            }.show()
+    private fun setupMovies(films: List<Film>) {
+        val sortedFilms = films.sortedBy { it.localized_name }
+
+        moviesRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        moviesRecyclerView.adapter = FilmAdapter(sortedFilms)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun toggleGenreFilter(genre: String, films: List<Film>) {
+        if (currentGenre == genre) {
+            currentGenre = null
+            setupMovies(films)
+        } else {
+            currentGenre = genre
+            val filteredFilms = films.filter { it.genres.contains(genre) }
+            moviesRecyclerView.adapter = FilmAdapter(filteredFilms)
+        }
     }
 }

@@ -10,7 +10,6 @@ import com.example.android_app_films.R
 import com.example.android_app_films.models.data.Film
 import com.bumptech.glide.Glide
 
-
 class FilmAdapter(private val films: List<Film>) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
 
     inner class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

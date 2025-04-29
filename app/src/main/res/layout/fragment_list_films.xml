@@ -1,54 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ListFilmsFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/genresTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/genres_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:padding="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/genresRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/moviesTitle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/films_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:padding="16dp" />
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moviesGrid"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/genresTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genres_text"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:padding="16dp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/genresRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
 
-    <TextView
-        android:id="@+id/errorTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/moviesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/films_text"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:padding="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moviesGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+</ScrollView>
