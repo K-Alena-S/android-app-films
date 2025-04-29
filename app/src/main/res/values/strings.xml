@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">android-app-films</string>
-    <!-- Strings used for fragments for navigation -->
+
+    <!-- Strings Fragment_ListFilms-->
     <string name="list_films_fragment_label">Фильмы</string>
+    <string name="films_text">Фильмы</string>
+    <string name="genres_text">Жанры</string>
+
+    <!-- Strings Fragment_Description-->
     <string name="description_fragment_label">Описание фильма</string>
-    <string name="next">Next</string>
 </resources>
