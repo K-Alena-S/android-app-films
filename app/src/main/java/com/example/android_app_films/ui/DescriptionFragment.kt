@@ -37,7 +37,7 @@ class DescriptionFragment : Fragment() {
             selectedFilm?.let {
                 binding.filmTitle.text = it.localized_name
                 binding.filmDescription.text = it.description
-                binding.filmYear.text = it.year.toString()
+                binding.filmGenresYear.text = it.genres.joinToString(", ") + ", " + it.year.toString() + " год"
                 binding.filmRating.text = it.rating.toString()
                 Glide.with(this@DescriptionFragment).load(it.image_url).into(binding.filmImage)
             }

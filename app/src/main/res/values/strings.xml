@@ -11,4 +11,5 @@
 
     <string name="error_network_text">Ошибка подключения сети</string>
     <string name="return_text">Повторить</string>
+    <string name="kinopoisk_text">Кинопоиск</string>
 </resources>

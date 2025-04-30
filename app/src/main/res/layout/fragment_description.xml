@@ -13,43 +13,74 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/white"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/filmImage"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:scaleType="centerCrop"/>
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:background="@android:color/white"
+                android:scaleType="fitCenter"/>
         </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/filmTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/filmGenresYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/filmRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kinopoisk_text"
+                android:textColor="@color/blue"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/filmDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/filmYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/filmRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+

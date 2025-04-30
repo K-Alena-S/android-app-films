@@ -39,6 +39,8 @@ class ListFilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.progressBar.visibility = View.VISIBLE
+        binding.genresTitle.visibility = View.GONE
+        binding.moviesTitle.visibility = View.GONE
 
         if (savedInstanceState != null) {
             currentGenre = savedInstanceState.getString(KEY_CURRENT_GENRE)
@@ -54,6 +56,8 @@ class ListFilmsFragment : Fragment() {
 
         filmViewModel.films.observe(viewLifecycleOwner) { films ->
             binding.progressBar.visibility = View.GONE
+            binding.genresTitle.visibility = View.VISIBLE
+            binding.moviesTitle.visibility = View.VISIBLE
             setupGenres(films)
             updateMovies(films)
         }
