@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_app_films.R
@@ -84,7 +85,12 @@ class ListFilmsFragment : Fragment() {
         val sortedFilms = filteredFilms.sortedBy { it.localized_name }
 
         binding.moviesGrid.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.moviesGrid.adapter = FilmAdapter(sortedFilms)
+        binding.moviesGrid.adapter = FilmAdapter(sortedFilms) { filmId ->
+            val bundle = Bundle().apply {
+                putInt("film_id", filmId)
+            }
+            findNavController().navigate(R.id.action_ListFilmsFragment_to_DescriptionFragment, bundle)
+        }
     }
 
     private fun toggleGenreFilter(genre: String, films: List<Film>) {

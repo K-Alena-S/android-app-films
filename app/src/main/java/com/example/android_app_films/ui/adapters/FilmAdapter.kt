@@ -10,7 +10,7 @@ import com.example.android_app_films.R
 import com.example.android_app_films.models.data.Film
 import com.bumptech.glide.Glide
 
-class FilmAdapter(private val films: List<Film>) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+class FilmAdapter(private val films: List<Film>, private val onFilmClick: (Int) -> Unit) : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
 
     inner class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val filmImage: ImageView = itemView.findViewById(R.id.filmImage)
@@ -21,6 +21,10 @@ class FilmAdapter(private val films: List<Film>) : RecyclerView.Adapter<FilmAdap
             Glide.with(itemView.context)
                 .load(film.image_url)
                 .into(filmImage)
+
+            itemView.setOnClickListener {
+                onFilmClick(film.id)
+            }
         }
     }
 
@@ -38,3 +42,4 @@ class FilmAdapter(private val films: List<Film>) : RecyclerView.Adapter<FilmAdap
         return films.size
     }
 }
+

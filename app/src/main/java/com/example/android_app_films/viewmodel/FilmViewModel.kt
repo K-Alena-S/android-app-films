@@ -10,6 +10,9 @@ class FilmViewModel(private val repository: FilmRepository) : ViewModel() {
     private val _films = MutableLiveData<List<Film>>()
     val films: LiveData<List<Film>> get() = _films
 
+    private val _filmDetails = MutableLiveData<Film>()
+    val filmDetails: LiveData<Film> get() = _filmDetails
+
     suspend fun fetchFilms() {
         if (_films.value == null) {
             try {
@@ -20,5 +23,11 @@ class FilmViewModel(private val repository: FilmRepository) : ViewModel() {
             }
         }
     }
+
+    suspend fun fetchFilmById(id: Int): Film? {
+        return repository.getFilmById(id)
+    }
 }
+
+
 
