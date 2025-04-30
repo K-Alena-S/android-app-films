@@ -24,11 +24,14 @@ class DescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDescriptionBinding.inflate(inflater, container, false)
+        binding.cinema.visibility = View.GONE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val filmName = arguments?.getString("name") ?: return
+        (activity as? MainActivity)?.setToolbarTitle(filmName)
 
         val filmId = arguments?.getInt("film_id") ?: return
 
@@ -37,6 +40,7 @@ class DescriptionFragment : Fragment() {
             selectedFilm?.let {
                 binding.filmTitle.text = it.localized_name
                 binding.filmDescription.text = it.description
+                binding.cinema.visibility = View.VISIBLE
                 binding.filmGenresYear.text = it.genres.joinToString(", ") + ", " + it.year.toString() + " год"
                 binding.filmRating.text = it.rating.toString()
                 Glide.with(this@DescriptionFragment).load(it.image_url).into(binding.filmImage)

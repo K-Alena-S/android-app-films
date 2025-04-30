@@ -2,6 +2,7 @@ package com.example.android_app_films.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,10 +105,17 @@ class ListFilmsFragment : Fragment() {
 
         binding.moviesGrid.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.moviesGrid.adapter = FilmAdapter(sortedFilms) { filmId ->
-            val bundle = Bundle().apply {
-                putInt("film_id", filmId)
+            viewLifecycleOwner.lifecycleScope.launch {
+                val selectedFilm = filmViewModel.fetchFilmById(filmId)
+                val nameFilm = selectedFilm?.name ?: ""
+
+                val bundle = Bundle().apply {
+                    putInt("film_id", filmId)
+                    putString("name", nameFilm)
+                    Log.d("ListFilmsFragment", "setToolbarTitle: $nameFilm, supportActionBar: ")
+                }
+                findNavController().navigate(R.id.action_ListFilmsFragment_to_DescriptionFragment, bundle)
             }
-            findNavController().navigate(R.id.action_ListFilmsFragment_to_DescriptionFragment, bundle)
         }
     }
 

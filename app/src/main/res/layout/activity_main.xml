@@ -16,16 +16,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleCentered="true"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
             android:background="@color/blue">
-
-            <TextView
-                android:id="@+id/toolbarTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:text="@string/list_films_fragment_label" />
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
