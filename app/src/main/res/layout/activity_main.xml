@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleCentered="true"
-            android:textColor="@android:color/white"
+            app:titleTextColor="@android:color/white"
             android:textSize="18sp"
             android:background="@color/blue">
         </com.google.android.material.appbar.MaterialToolbar>

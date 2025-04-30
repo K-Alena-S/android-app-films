@@ -25,7 +25,17 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            val isStartDestination = destination.id == navController.graph.startDestinationId
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination)
+            if (!isStartDestination) {
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_arrow_left)
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

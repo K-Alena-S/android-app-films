@@ -30,8 +30,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val filmName = arguments?.getString("name") ?: return
-        (activity as? MainActivity)?.setToolbarTitle(filmName)
+        updateToolbarTitle()
 
         val filmId = arguments?.getInt("film_id") ?: return
 
@@ -46,6 +45,16 @@ class DescriptionFragment : Fragment() {
                 Glide.with(this@DescriptionFragment).load(it.image_url).into(binding.filmImage)
             }
         }
+    }
+
+    private fun updateToolbarTitle() {
+        val filmName = arguments?.getString("name") ?: return
+        (activity as? MainActivity)?.setToolbarTitle(filmName)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateToolbarTitle()
     }
 
     override fun onDestroyView() {
