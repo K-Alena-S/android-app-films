@@ -3,5 +3,9 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="snackbarStyle">@style/MySnackbarStyle</item>
+    </style>
+    <style name="MySnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/dark</item>
     </style>
 </resources>

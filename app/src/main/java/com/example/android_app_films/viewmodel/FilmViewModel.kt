@@ -10,24 +10,27 @@ class FilmViewModel(private val repository: FilmRepository) : ViewModel() {
     private val _films = MutableLiveData<List<Film>>()
     val films: LiveData<List<Film>> get() = _films
 
-    private val _filmDetails = MutableLiveData<Film>()
-    val filmDetails: LiveData<Film> get() = _filmDetails
+    val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
 
-    suspend fun fetchFilms() {
-        if (_films.value == null) {
-            try {
-                val response = repository.getFilms()
-                _films.value = response.films
-            } catch (e: Exception) {
-                _films.value = emptyList()
-            }
+    suspend fun fetchFilms(): Boolean {
+        return try {
+            val response = repository.getFilms()
+            _films.value = response.films
+            _error.value = null
+            true
+        } catch (e: Exception) {
+            _films.value = emptyList()
+            _error.value = e.message
+            false
         }
     }
 
     suspend fun fetchFilmById(id: Int): Film? {
-        return repository.getFilmById(id)
+        return try {
+            repository.getFilmById(id)
+        } catch (e: Exception) {
+            null
+        }
     }
 }
-
-
-

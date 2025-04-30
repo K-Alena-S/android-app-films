@@ -1,9 +1,12 @@
 package com.example.android_app_films.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -46,28 +49,40 @@ class ListFilmsFragment : Fragment() {
             currentGenre = savedInstanceState.getString(KEY_CURRENT_GENRE)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                filmViewModel.fetchFilms()
-            } catch (e: Exception) {
-                showError()
-            }
-        }
+        loadFilms()
+    }
 
-        filmViewModel.films.observe(viewLifecycleOwner) { films ->
-            binding.progressBar.visibility = View.GONE
-            binding.genresTitle.visibility = View.VISIBLE
-            binding.moviesTitle.visibility = View.VISIBLE
-            setupGenres(films)
-            updateMovies(films)
+    private fun loadFilms() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val success = filmViewModel.fetchFilms()
+            if (!success || filmViewModel.error.value != null) {
+                showError()
+            } else {
+                val films = filmViewModel.films.value
+                binding.progressBar.visibility = View.GONE
+                if (!films.isNullOrEmpty()) {
+                    binding.genresTitle.visibility = View.VISIBLE
+                    binding.moviesTitle.visibility = View.VISIBLE
+                }
+                setupGenres(films ?: emptyList())
+                updateMovies(films ?: emptyList())
+            }
         }
     }
 
     private fun showError() {
-        Snackbar.make(requireView(), R.string.error_network_text, Snackbar.LENGTH_INDEFINITE)
+        binding.progressBar.visibility = View.GONE
+        val snackbar = Snackbar.make(requireView(), R.string.error_network_text, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.return_text) {
                 binding.progressBar.visibility = View.VISIBLE
-            }.show()
+                loadFilms()
+            }
+
+        val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.setTextColor(Color.WHITE)
+        val actionTextView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        actionTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+        snackbar.show()
     }
 
     private fun setupGenres(films: List<Film>) {
@@ -85,7 +100,6 @@ class ListFilmsFragment : Fragment() {
         } else {
             films
         }
-
         val sortedFilms = filteredFilms.sortedBy { it.localized_name }
 
         binding.moviesGrid.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -103,7 +117,6 @@ class ListFilmsFragment : Fragment() {
         } else {
             currentGenre = genre
         }
-
         updateMovies(films)
         setupGenres(films)
     }

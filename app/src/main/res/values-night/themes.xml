@@ -1,4 +1,8 @@
 <resources>
     <style name="Base.Theme.Androidappfilms" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="snackbarStyle">@style/MySnackbarStyle</item>
+    </style>
+    <style name="MySnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/dark</item>
     </style>
 </resources>
