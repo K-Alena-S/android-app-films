@@ -1,17 +1,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/filmImage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/filmImage"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:scaleType="centerCrop"/>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/filmTitle"
@@ -21,7 +26,9 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:paddingTop="4dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/cardView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filmImage" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

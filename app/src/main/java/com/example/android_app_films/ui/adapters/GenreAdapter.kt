@@ -1,14 +1,17 @@
 package com.example.android_app_films.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_app_films.R
 
 class GenreAdapter(
     private val genres: List<String>,
+    private val currentGenre: String?,
     private val onGenreClick: (String) -> Unit
 ) : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
@@ -17,6 +20,13 @@ class GenreAdapter(
 
         fun bind(genre: String) {
             genreName.text = genre
+            itemView.setBackgroundColor(
+                if (genre == currentGenre) {
+                    ContextCompat.getColor(itemView.context, R.color.orange)
+                } else {
+                    Color.TRANSPARENT
+                }
+            )
             itemView.setOnClickListener {
                 onGenreClick(genre)
             }
@@ -37,4 +47,3 @@ class GenreAdapter(
         return genres.size
     }
 }
-
